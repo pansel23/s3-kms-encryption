@@ -18,7 +18,7 @@ resource "aws_kms_alias" "s3_key_alias" {
 
 # 2. Create an S3 bucket with default encryption
 resource "aws_s3_bucket" "kms_bucket" {
-  bucket = "my-kms-encrypted-bucket-23"
+  bucket        = "my-kms-encrypted-bucket-23"
   force_destroy = true
 }
 
@@ -42,7 +42,7 @@ resource "aws_iam_policy" "s3_kms_access" {
     Version = "2012-10-17",
     Statement = [
       {
-        Sid = "AllowS3Read",
+        Sid    = "AllowS3Read",
         Effect = "Allow",
         Action = [
           "s3:GetObject",
@@ -54,7 +54,7 @@ resource "aws_iam_policy" "s3_kms_access" {
         ]
       },
       {
-        Sid = "AllowKMSUsage",
+        Sid    = "AllowKMSUsage",
         Effect = "Allow",
         Action = [
           "kms:Decrypt",
@@ -84,19 +84,19 @@ resource "aws_kms_key" "s3_key_with_policy" {
 
   policy = jsonencode({
     Version = "2012-10-17",
-    Id = "kms-key-policy",
+    Id      = "kms-key-policy",
     Statement = [
       {
-        Sid = "Enable IAM User Permissions",
+        Sid    = "Enable IAM User Permissions",
         Effect = "Allow",
         Principal = {
           AWS = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:root"
         },
-        Action = "kms:*",
+        Action   = "kms:*",
         Resource = "*"
       },
       {
-        Sid = "Allow access for user",
+        Sid    = "Allow access for user",
         Effect = "Allow",
         Principal = {
           AWS = aws_iam_user.example_user.arn
