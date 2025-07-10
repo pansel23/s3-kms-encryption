@@ -72,7 +72,7 @@ resource "aws_iam_policy" "s3_kms_access" {
 
 # 4. Attach policy to specific IAM user (replace with actual user name)
 resource "aws_iam_user" "example_user" {
-  name = "kms"
+  name = "s3-kms"
 }
 
 resource "aws_iam_user_policy_attachment" "attach_policy" {
